@@ -9,6 +9,9 @@ public class ExpressionCalculator {
         Stack<Character> operators = new Stack<>();
 
         for (int i = 0; i < expression.length(); i++) {
+            //System.out.println(operators);
+            //System.out.println(numbers);
+
             char c = expression.charAt(i);
 
             // Пропускаем пробелы
