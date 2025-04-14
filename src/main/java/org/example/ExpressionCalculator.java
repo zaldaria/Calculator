@@ -1,9 +1,22 @@
 package org.example;
 import java.util.Stack;
 
+/**
+ * Калькулятор математических выражений, представленных в виде строки.
+ * Поддерживает операции: +, -, *, /, скобки () и десятичные числа.
+ * Использует алгоритм на основе двух стеков (чисел и операторов) с учётом приоритетов операций. *
+ */
 public class ExpressionCalculator {
     public ExpressionCalculator(){}
 
+    /**
+     * Вычисляет значение математического выражения.
+     *
+     * @param expression строка с математическим выражением (например, "2 * (3 + 4)")
+     * @return результат вычисления
+     * @throws IllegalArgumentException если выражение содержит некорректные символы,
+     * несогласованные скобки, деление на ноль, синтаксические ошибки
+     */
     public static double evaluate(String expression) throws IllegalArgumentException {
         Stack<Double> numbers = new Stack<>();
         Stack<Character> operators = new Stack<>();
@@ -73,11 +86,23 @@ public class ExpressionCalculator {
 
         return numbers.pop();
     }
-
+    /**
+     * Проверяет, является ли символ оператором.
+     *
+     * @param c проверяемый символ
+     * @return true, если символ это +, -, * или /
+     */
     private static boolean isOperator(char c) {
         return c == '+' || c == '-' || c == '*' || c == '/';
     }
 
+    /**
+     * Применяет операцию к двум верхним числам из стека.
+     *
+     * @param numbers стек чисел
+     * @param operators стек операторов
+     * @throws IllegalArgumentException если недостаточно чисел в стеке, деление на ноль, неизвестный оператор
+     */
     private static void applyOperation(Stack<Double> numbers, Stack<Character> operators) {
         if (numbers.size() < 2 || operators.isEmpty()) {
             throw new IllegalArgumentException("Invalid expression");
@@ -107,6 +132,13 @@ public class ExpressionCalculator {
                 throw new IllegalArgumentException("Unknown operator: " + op);
         }
     }
+
+    /**
+     * Возвращает приоритет оператора.
+     *
+     * @param op оператор (+, -, *, /)
+     * @return числовой приоритет (2 для * /, 1 для + -)
+     */
     private static int precedence(char op) {
         switch (op) {
             case '+':
